@@ -12,14 +12,14 @@
 #include <cstdio>
 
 namespace Intersection {
-    
-    Vector3d radiance(const Ray &ray, Random random, const int depth)
+
+    Vector3d radiance(const Ray &ray, Random &random, const int depth)
     {
         // 背景は黒に指定
-        const Vector3d backgroundColor = Vector3d(0.0, 0.0, 0.0);
+        const Vector3d backgroundColor = Vector3d(1.0, 1.0, 1.0);
         const int depthLimit = 10;
         // 打ち切り
-        if (depth > depthLimit)
+        if (depth >= depthLimit)
         {
             return Vector3d();
         }
@@ -32,12 +32,28 @@ namespace Intersection {
         {
             return backgroundColor;
         }
-        
-        const Material *material;
-        const Color emission = material->emission();
 
+        const Material *material    = object->material();
+        const Vector3d emission     = material->emission();
+        if(emission.x > 0.0 || emission.y > 0.0 || emission.z > 0.0)
+        {
+            // 光源にあたった場合
+            // 光源の反射率は0に設定している
+            return emission;
+        }
 
-        return Vector3d(255.0 , 0, 0);
+        // 次の方向をサンプリングする
+        double pdf = -1;
+        Vector3d brdfValue;
+        const Vector3d dirOut = material->sample(random, ray.dir, hitpoint.normal, &pdf, &brdfValue);
+
+        // cos項
+        const double cost = dot(hitpoint.normal, dirOut);
+
+        // レンダリング方程式をモンテカルロ積分で解いていく
+        const Vector3d L = multiply(brdfValue, radiance(Ray(hitpoint.position, dirOut), random, depth + 1)) * cost / pdf;
+
+        return L;
     }
 
 };
