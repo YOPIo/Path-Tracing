@@ -18,7 +18,7 @@ namespace Intersection
     public:
         Triangle(Vector3d p0, Vector3d p1, Vector3d p2) : _vertex0(p0), _vertex1(p1), _vertex2(p2){}
         
-        
+        // 参考文献
         // Fast, Minimum Storage Ray/Triangle Intersection
         inline bool isIntersect(const Ray &ray, Hitpoint *hitpoint) const
         {
@@ -32,7 +32,6 @@ namespace Intersection
             // determinantを計算
             Vector3d p = cross(ray.dir, edge1);
             
-            // detが0に近い場合はrayは三角形の面内で交わっている
             double det = dot(edge0, p);
             if(-EPS < det && det < EPS)
             {
@@ -60,9 +59,11 @@ namespace Intersection
             // 交点を求める
             hitpoint->distance = dot(edge1, q) * invDet; // t
             hitpoint->position = ray.org + hitpoint->distance * ray.dir;
-
+            
             // 法線を求める
-            hitpoint->normal = cross((_vertex1 - _vertex0), (_vertex2 - _vertex0)) / ( cross(_vertex1 - _vertex0, _vertex2 - _vertex0).length() );
+            hitpoint->normal = normalize(cross((_vertex1 - _vertex0), (_vertex2 - _vertex0)) / ( cross(_vertex1 - _vertex0, _vertex2 - _vertex0).length() ));
+            
+            hitpoint->normal = normalize(cross((_vertex1 - _vertex0), (_vertex2 - _vertex0)) );
             return true;
         }
         

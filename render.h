@@ -30,8 +30,8 @@ namespace Intersection
         Vector3d *image = new Vector3d[height * width];
 
         // カメラ位置
-        const Vector3d cameraPosition = Vector3d(7.0, 3.0, 7.0);
-        const Vector3d cameraLookat   = Vector3d(0.0, 1.0, 0.0);
+        const Vector3d cameraPosition = Vector3d(0.0, 0.0, 8.0);
+        const Vector3d cameraLookat   = Vector3d(0.0, 0.0, 0.0);
         const Vector3d cameraDir      = normalize(cameraLookat - cameraPosition);
         const Vector3d cameraUp       = Vector3d(0.0, 1.0, 0.0);
 

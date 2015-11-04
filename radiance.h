@@ -32,7 +32,9 @@ namespace Intersection {
         {
             return backgroundColor;
         }
-
+        // 当たり判定確認
+        // return Vector3d(1.0, 0.0, 0.0);
+        
         const Material *material    = object->material();
         const Vector3d emission     = material->emission();
         if(emission.x > 0.0 || emission.y > 0.0 || emission.z > 0.0)
@@ -57,6 +59,4 @@ namespace Intersection {
     }
 
 };
-
-
 #endif //_RADIANCE_H_

@@ -16,47 +16,87 @@ namespace Intersection
 {
     class Scene
     {
-    private:
-        Sphere _sphere;
+    protected:
         const Material *_material;
+        const Object *_object;
 
     public:
-    Scene(const Sphere &sphere, const Material *material) : _sphere(sphere), _material(material){}
-
-        const Sphere* object() const
+    Scene(const Object *object, const Material *material) : _object(object), _material(material){}
+        
+        const Object* object() const
         {
-            return &_sphere;
+            return _object;
         }
 
         const Material* material() const
         {
             return _material;
         }
-
     };
 
     inline const Scene* renderScene(const Ray &ray, Hitpoint *hitpoint)
     {
-//        Sphere  s1 = Sphere(Vector3d( 0,  0, 10), 1);
-//        Plane   p1 = Plane(Vector3d(0, -10, 0), Vector3d(0, -1, 0));
-//        Triangle t1 = Triangle(Vector3d(-1, -1, 5), Vector3d(1, -1, 5), Vector3d( 0, 1.5, 10));
 
         static const Scene scene[] =
-            {
-            Scene(Sphere(Vector3d( 0.0, -100000.0,       0.0), 100000.0),   new LambertSimpleMaterial(Vector3d(0.7, 0.7, 0.7))),
-            Scene(Sphere(Vector3d( 0.0,  100004.0,       0.0), 100000.0),   new LambertSimpleMaterial(Vector3d(0.7, 0.7, 0.7))),
-            Scene(Sphere(Vector3d(-100003.0,  0.0,       0.0), 100000.0),   new LambertSimpleMaterial(Vector3d(0.7, 0.1, 0.1))),
-            Scene(Sphere(Vector3d( 100009.0,  0.0,       0.0), 100000.0),   new LambertSimpleMaterial(Vector3d(0.7, 0.7, 0.7))),
-            Scene(Sphere(Vector3d(0.0,        0.0, -100003.0), 100000.0),   new LambertSimpleMaterial(Vector3d(0.1, 0.7, 0.1))),
-            Scene(Sphere(Vector3d( 0.0,    103.99,       0.0), 100.0),      new Light                (Vector3d(8.0, 8.0, 8.0))),
-            Scene(Sphere(Vector3d(-2.0,       1.0,       0.0), 1.0),        new LambertSimpleMaterial(Vector3d(0.7, 0.7, 0.7))),
-            Scene(Sphere(Vector3d( 2.0,       1.0,       0.0), 1.0),        new LambertSimpleMaterial(Vector3d(0.1, 0.1, 0.7))),
-//            Scene(s1, new LambertSimpleMaterial(Vector3d(0.7, 0.7, 0.7)))
-//            Scene(p1, new LambertSimpleMaterial(Vector3d(0.7, 0.7, 0.7))),
-//            Scene(t1, new LmabertSimpleMaterial(Vector3d(0.7, 0.7, 0.7))),
-            };
+        {
+            Scene(new Sphere(Vector3d( 0.0, -100000.0,       0.0), 100000.0),   new LambertSimpleMaterial(Vector3d(0.7, 0.7, 0.7))),
+            Scene(new Sphere(Vector3d( 0.0,  100004.0,       0.0), 100000.0),   new LambertSimpleMaterial(Vector3d(0.7, 0.7, 0.7))),
+            Scene(new Sphere(Vector3d(-100003.0,  0.0,       0.0), 100000.0),   new LambertSimpleMaterial(Vector3d(0.7, 0.1, 0.1))),
+            Scene(new Sphere(Vector3d( 100009.0,  0.0,       0.0), 100000.0),   new LambertSimpleMaterial(Vector3d(0.7, 0.7, 0.7))),
+            Scene(new Sphere(Vector3d(0.0,        0.0, -100003.0), 100000.0),   new LambertSimpleMaterial(Vector3d(0.1, 0.7, 0.1))),
+            Scene(new Sphere(Vector3d( 0.0,    103.99,       0.0), 100.0),      new Light                (Vector3d(8.0, 8.0, 8.0))),
+            Scene(new Sphere(Vector3d(-2.0,       1.0,       0.0), 1.0),        new LambertSimpleMaterial(Vector3d(0.7, 0.7, 0.7))),
+            Scene(new Sphere(Vector3d( 2.0,       1.0,       0.0), 1.0),        new LambertSimpleMaterial(Vector3d(0.1, 0.1, 0.7))),
+        };
+        
+        static const Scene cornellBox[] =
+        {
+            // Light
+            Scene(new Sphere    ( Vector3d( 0.0, 103.99, 0.0), 100.0), new Light(Vector3d(8.0, 8.0, 8.0)) ),
+            
+            // Sphere
+            Scene(new Sphere    ( Vector3d( 1.0,  -1.0,  1.1), 0.8), new LambertSimpleMaterial (Vector3d(0.1, 0.7, 0.1)) ),
+            Scene(new Sphere    ( Vector3d(-1.0,  -1.0, -0.8), 0.8), new LambertSimpleMaterial (Vector3d(0.7, 0.1, 0.1)) ),
+            
+            // Box 反時計回りに頂点を置く
+            // left side
+            Scene(new Triangle  ( Vector3d(-2.0,  2.0, -2.0), Vector3d(-2.0,  2.0,  2.0), Vector3d(-2.0, -2.0, -2.0) ),
+                  new LambertSimpleMaterial(Vector3d(0.1, 0.7, 0.1)) ),
+            Scene(new Triangle  ( Vector3d(-2.0, -2.0, -2.0), Vector3d(-2.0,  2.0,  2.0), Vector3d(-2.0, -2.0,  2.0) ),
+                  new LambertSimpleMaterial(Vector3d(0.1, 0.7, 0.1)) ),
+            
+            // right side
+            /*
+            Scene(new Triangle  ( Vector3d( 2.0, 2.0,  2.0), Vector3d( 2.0,  2.0, -2.0), Vector3d( 2.0, -2.0, -2.0) ),
+                  new LambertSimpleMaterial(Vector3d(0.7, 0.1, 0.1)) ),
+             */
+            Scene(new Triangle  ( Vector3d( 2.0, 2.0,  2.0), Vector3d( 2.0, -2.0, -2.0), Vector3d( 2.0, -2.0,  2.0) ),
+                  new LambertSimpleMaterial(Vector3d(0.7, 0.1, 0.1)) ),
 
-        const int n = sizeof(scene) / sizeof(Scene);
+            /*
+            // top
+            Scene(new Triangle  ( Vector3d( 2.0, 2.0, 2.0), Vector3d(-2.0, 2.0, 2.0), Vector3d(-2.0, 2.0, -2.0) ),
+                  new LambertSimpleMaterial(Vector3d(0.1, 0.1, 0.1)) ),
+            Scene(new Triangle  ( Vector3d( 2.0, 2.0, 2.0), Vector3d(-2.0, 2.0, -2.0), Vector3d(2.0, 2.0, -2.0) ),
+                  new LambertSimpleMaterial(Vector3d(0.1, 0.1, 0.1)) ),
+            */
+            
+            // center
+            Scene(new Triangle(Vector3d(2.0, 2.0, -2.0), Vector3d(-2.0, 2.0, -2.0), Vector3d(-2.0, -2.0, -2.0)),
+                  new LambertSimpleMaterial(Vector3d(0.1, 0.1, 0.1)) ),
+            Scene(new Triangle(Vector3d(2.0, 2.0, -2.0), Vector3d(-2.0, -2.0, -2.0), Vector3d(2.0, -2.0, -2.0)),
+                  new LambertSimpleMaterial(Vector3d(0.1, 0.1, 0.1)) ),
+
+            /*
+            // bottom
+            Scene(new Triangle(Vector3d( 2.0, -2.0, -2.0), Vector3d(-2.0, -2.0, -2.0), Vector3d(-2.0, -2.0, 2.0)),
+                  new LambertSimpleMaterial(Vector3d(0.1, 0.1, 0.1)) ),
+            Scene(new Triangle(Vector3d( 2.0, -2.0, -2.0), Vector3d(-2.0, -2.0, 2.0), Vector3d(2.0, -2.0,  2.0)),
+                  new LambertSimpleMaterial(Vector3d(0.1, 0.1, 0.1)) ),
+            */
+        };
+        
+        const int n = sizeof(cornellBox) / sizeof(Scene);
 
         // 初期化
         *hitpoint = Hitpoint();
@@ -64,14 +104,13 @@ namespace Intersection
 
         for(int i = 0 ; i < n ; ++i)
         {
-            // TODO : sphere or plane で場合分け
             Hitpoint temp;
-            if( scene[i].object()->isIntersect(ray, &temp) )
+            if( cornellBox[i].object()->isIntersect(ray, &temp) )
             {
                 if( temp.distance < hitpoint->distance )
                 {
                     *hitpoint = temp;
-                    object = &scene[i];
+                    object = &cornellBox[i];
                 }
             }
         }
