@@ -5,7 +5,8 @@
 #include <cstdio>
 #include "vector3d.h"
 
-namespace Intersection {
+namespace Intersection
+{
     
     inline double clamp(double x)
     {

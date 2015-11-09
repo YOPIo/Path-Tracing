@@ -32,7 +32,9 @@ namespace Intersection {
         {
             return backgroundColor;
         }
-
+        // 当たり判定確認
+        // return Vector3d(1.0, 0.0, 0.0);
+        
         const Material *material    = object->material();
         const Vector3d emission     = material->emission();
         if(emission.x > 0.0 || emission.y > 0.0 || emission.z > 0.0)
@@ -49,14 +51,11 @@ namespace Intersection {
 
         // cos項
         const double cost = dot(hitpoint.normal, dirOut);
-
+        
         // レンダリング方程式をモンテカルロ積分で解いていく
         const Vector3d L = multiply(brdfValue, radiance(Ray(hitpoint.position, dirOut), random, depth + 1)) * cost / pdf;
-
         return L;
     }
 
 };
-
-
 #endif //_RADIANCE_H_

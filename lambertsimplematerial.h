@@ -33,7 +33,7 @@ namespace Intersection
             orthoNormalBasis(nowNormal, &tangent, &binormal);
             // 次に反射する方向を計算する
             const Vector3d dir = Sampling::uniformHemisphereSurface(random, nowNormal, tangent, binormal);
-
+            
             //pdf : 1 / (2 * pi)
             if (pdf != NULL)
             {

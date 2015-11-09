@@ -21,17 +21,17 @@ namespace Intersection
 {
     int render(const char* filename, const int width, const int height, const int samplePerSubpixel, const int subpixel, const int thread)
     {
-#ifdef _OPENMP
+        #ifdef _OPENMP
         omp_set_num_threads(thread);
-#endif //_OPENMP
+        #endif //_OPENMP
 
         // レンダーした結果を格納する
         // RGBの3構成になるのでVector3d型を流用
         Vector3d *image = new Vector3d[height * width];
 
         // カメラ位置
-        const Vector3d cameraPosition = Vector3d(7.0, 3.0, 7.0);
-        const Vector3d cameraLookat   = Vector3d(0.0, 1.0, 0.0);
+        const Vector3d cameraPosition = Vector3d(0.0, 0.0, 8.0);
+        const Vector3d cameraLookat   = Vector3d(0.0, 0.0, 0.0);
         const Vector3d cameraDir      = normalize(cameraLookat - cameraPosition);
         const Vector3d cameraUp       = Vector3d(0.0, 1.0, 0.0);
 
@@ -53,7 +53,7 @@ namespace Intersection
         {
             std::cerr << "Rendering (y = " << y << ", " << (100.0 * y / (height - 1)) << " %)          \r";
 
-#pragma omp parallel for schedule(static) // OpenMP
+            #pragma omp parallel for schedule(static) // OpenMP
             for(int x = 0 ; x < width ; ++x)
             {
                 const int index = (height - y - 1) * width + x;
@@ -74,7 +74,7 @@ namespace Intersection
                             const double r2 = sy * rate + rate / 2.0;
                             // イメージセンサー上の位置
                             const Vector3d OnSensorPosition = sensorCenter + sensorVectorX *((r1 + x) / width - 0.5) + sensorVectorY * ((r2 + y) / height - 0.5);
-                            // レイを飛ばす方向ベクトルを決定する
+                            // レイを飛ばす方向ベクトルを決定
                             const Vector3d rayDirection = normalize(OnSensorPosition - cameraPosition);
 
                             accumulatedRadiance = accumulatedRadiance +

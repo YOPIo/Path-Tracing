@@ -8,9 +8,10 @@ namespace Intersection
 {
     class Object
     {
+    private:
     protected:
     public:
-        virtual inline bool isIntersect(const Ray&, Hitpoint*) const = 0;
+        virtual bool isIntersect(const Ray&, Hitpoint*) const = 0;
     };
 };
 #endif //_OBJECT_H_

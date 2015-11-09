@@ -89,6 +89,7 @@ namespace Intersection
             *tangent = normalize(cross(Vector3d(1, 0, 0), normal));
         }
         // binormal(従法線ベクトル)
+        
         *binormal = normalize(cross(normal, *tangent));
     }
 
