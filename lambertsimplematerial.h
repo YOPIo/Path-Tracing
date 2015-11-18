@@ -1,5 +1,5 @@
-#ifndef _LAMBERT_H_
-#define _LAMBERT_H_
+#ifndef _LAMBERTSIMPLEMATERIAL_H_
+#define _LAMBERTSIMPLEMATERIAL_H_
 
 #include <iostream>
 
@@ -9,7 +9,7 @@
 #include "constant.h"
 #include "sampling.h"
 
-namespace Intersection
+namespace RayTracing
 {
     class LambertSimpleMaterial : public Material
     {
@@ -18,7 +18,7 @@ namespace Intersection
     public:
         LambertSimpleMaterial(const Vector3d &reflectance) : Material(Vector3d(), reflectance){};
 
-        // lambert BRDF ρ/π でρは[0, 1]を返す反射率
+        // lambert BRDF ρ/π でρは反射率
         virtual Vector3d eval(const Vector3d &in, const Vector3d &normal, const Vector3d &out) const
         {
             return _reflectance / PI;
@@ -49,4 +49,4 @@ namespace Intersection
     };
 };
 
-#endif // _LAMBERT_H_
+#endif // _LAMBERTSIMPLEMATERIAL_H_

@@ -4,7 +4,7 @@
 #include "ray.h"
 #include "hitpoint.h"
 
-namespace Intersection
+namespace RayTracing
 {
     class Object
     {

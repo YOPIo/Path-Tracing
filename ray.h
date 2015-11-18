@@ -4,7 +4,7 @@
 #include "vector3d.h"
 #include "constant.h"
 
-namespace Intersection
+namespace RayTracing
 {
     struct Ray
     {

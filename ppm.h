@@ -5,7 +5,7 @@
 #include <cstdio>
 #include "vector3d.h"
 
-namespace Intersection
+namespace RayTracing
 {
     
     inline double clamp(double x)

@@ -2,6 +2,6 @@
 
 int main(int argc, const char * argv[])
 {
-    Intersection::render("cornellBox.ppm", 480, 480, 4, 16, 16);
+    RayTracing::render("cornellBox.ppm", 480, 480, 4, 8, 16);
     return 0;
 }

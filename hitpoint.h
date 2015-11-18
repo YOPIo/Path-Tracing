@@ -3,7 +3,7 @@
 
 #include "vector3d.h"
 
-namespace Intersection
+namespace RayTracing
 {
     
     struct Hitpoint{

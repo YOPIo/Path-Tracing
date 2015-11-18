@@ -4,7 +4,7 @@
 #include <cmath>
 #include "constant.h"
 
-namespace Intersection
+namespace RayTracing
 {
 
     struct Vector3d
@@ -71,6 +71,7 @@ namespace Intersection
                         (v1.x * v2.y) - (v1.y * v2.x));
     }
 
+    
     inline Vector3d reflect(const Vector3d &in, const Vector3d &normal)
     {
         return normalize(in - normal * 2.0 * dot(normal, in));

@@ -9,7 +9,7 @@
 
 #include <stdio.h>
 
-namespace Intersection
+namespace RayTracing
 {
     class Triangle : public Object
     {

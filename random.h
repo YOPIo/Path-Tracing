@@ -7,7 +7,7 @@
 #include "constant.h"
 
 // 乱数生成
-namespace Intersection
+namespace RayTracing
 {
     // xorshift64*による乱数ジェネレータ
     // Sebastiano Vigna. An experimental exploration of Marsaglia's xorshift generators, scrambled. CoRR, abs/1402.6246, 2014. 

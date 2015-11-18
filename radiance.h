@@ -11,7 +11,8 @@
 
 #include <cstdio>
 
-namespace Intersection {
+namespace RayTracing
+{
 
     Vector3d radiance(const Ray &ray, Random &random, const int depth)
     {

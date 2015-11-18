@@ -10,9 +10,11 @@
 #include "object.h"
 #include "material.h"
 #include "light.h"
+#include "lambertMaterial.h"
+#include "phongMaterial.h"
 #include "lambertsimplematerial.h"
 
-namespace Intersection
+namespace RayTracing
 {
     class Scene
     {
@@ -55,55 +57,55 @@ namespace Intersection
             Scene(new Sphere    ( Vector3d( 0.0, 103.99, 0.0), 100.0), new Light(Vector3d(8.0, 8.0, 8.0)) ),
             
             // Sphere
-            Scene(new Sphere    ( Vector3d(  0.9,  -1.5,  1.2), 0.5), new LambertSimpleMaterial (Vector3d(0.1, 0.6, 0.1)) ),
-            Scene(new Sphere    ( Vector3d(-0.85,  -1.2, -0.8), 0.8), new LambertSimpleMaterial (Vector3d(0.6, 0.1, 0.1)) ),
+            Scene(new Sphere    ( Vector3d(  0.9,  -1.5,  1.2), 0.5), new PhongMaterial (Vector3d(0.1, 0.6, 0.1), 100.0) ),
+            Scene(new Sphere    ( Vector3d(-0.85,  -1.2, -0.8), 0.8), new PhongMaterial (Vector3d(0.6, 0.1, 0.1), 100.0) ),
             
             // Box 反時計回りに頂点を置く
             // left side
             Scene(new Triangle  ( Vector3d(-2.0,  2.0, -2.0), Vector3d(-2.0,  2.0,  2.0), Vector3d(-2.0, -2.0, -2.0) ),
-                  new LambertSimpleMaterial(Vector3d(0.1, 0.7, 0.1)) ),
+                  new LambertMaterial(Vector3d(0.1, 0.7, 0.1)) ),
             Scene(new Triangle  ( Vector3d(-2.0, -2.0, -2.0), Vector3d(-2.0,  2.0,  2.0), Vector3d(-2.0, -2.0,  2.0) ),
-                  new LambertSimpleMaterial(Vector3d(0.1, 0.7, 0.1)) ),
+                  new LambertMaterial(Vector3d(0.1, 0.7, 0.1)) ),
             
             // right side
             Scene(new Triangle  ( Vector3d( 2.0, 2.0,  2.0), Vector3d( 2.0,  2.0, -2.0), Vector3d( 2.0, -2.0, -2.0) ),
-                  new LambertSimpleMaterial(Vector3d(0.7, 0.1, 0.1)) ),
+                  new LambertMaterial(Vector3d(0.7, 0.1, 0.1)) ),
             Scene(new Triangle  ( Vector3d( 2.0, 2.0,  2.0), Vector3d( 2.0, -2.0, -2.0), Vector3d( 2.0, -2.0,  2.0) ),
-                  new LambertSimpleMaterial(Vector3d(0.7, 0.1, 0.1)) ),
+                  new LambertMaterial(Vector3d(0.7, 0.1, 0.1)) ),
 
             // top
             Scene(new Triangle  ( Vector3d(-2.0, 2.0, -2.0), Vector3d(-1.0, 2.0, -2.0), Vector3d(-1.0, 2.0, 2.0) ),
-                  new LambertSimpleMaterial(Vector3d(0.1, 0.1, 0.1)) ),
+                  new LambertMaterial(Vector3d(0.1, 0.1, 0.1)) ),
             Scene(new Triangle  ( Vector3d(-2.0, 2.0, 2.0), Vector3d(-2.0, 2.0, -2.0), Vector3d(-1.0, 2.0, 2.0) ),
-                  new LambertSimpleMaterial(Vector3d(0.1, 0.1, 0.1)) ),
+                  new LambertMaterial(Vector3d(0.1, 0.1, 0.1)) ),
             
             Scene(new Triangle  ( Vector3d(-1.0, 2.0, -2.0), Vector3d(1.0, 2.0, -2.0), Vector3d(1.0, 2.0, -1.0) ),
-                  new LambertSimpleMaterial(Vector3d(0.1, 0.1, 0.1)) ),
+                  new LambertMaterial(Vector3d(0.1, 0.1, 0.1)) ),
             Scene(new Triangle  ( Vector3d(-1.0, 2.0, -2.0), Vector3d(1.0, 2.0, -1.0), Vector3d(-1.0, 2.0, -1.0) ),
-                  new LambertSimpleMaterial(Vector3d(0.1, 0.1, 0.1)) ),
+                  new LambertMaterial(Vector3d(0.1, 0.1, 0.1)) ),
             
             Scene(new Triangle  ( Vector3d(-1.0, 2.0, 1.0), Vector3d(1.0, 2.0, 1.0), Vector3d(1.0, 2.0, 2.0) ),
-                  new LambertSimpleMaterial(Vector3d(0.1, 0.1, 0.1)) ),
+                  new LambertMaterial(Vector3d(0.1, 0.1, 0.1)) ),
             Scene(new Triangle  ( Vector3d(-1.0, 2.0, 2.0), Vector3d(-1.0, 2.0, 1.0), Vector3d(1.0, 2.0, 2.0) ),
-                  new LambertSimpleMaterial(Vector3d(0.1, 0.1, 0.1)) ),
+                  new LambertMaterial(Vector3d(0.1, 0.1, 0.1)) ),
             
             Scene(new Triangle  ( Vector3d(1.0, 2.0, -2.0), Vector3d(2.0, 2.0, -2.0), Vector3d(2.0, 2.0, 2.0) ),
-                  new LambertSimpleMaterial(Vector3d(0.1, 0.1, 0.1)) ),
+                  new LambertMaterial(Vector3d(0.1, 0.1, 0.1)) ),
             Scene(new Triangle  ( Vector3d(1.0, 2.0, -2.0), Vector3d(2.0, 2.0, 2.0), Vector3d(1.0, 2.0, 2.0) ),
-                  new LambertSimpleMaterial(Vector3d(0.1, 0.1, 0.1)) ),
+                  new LambertMaterial(Vector3d(0.1, 0.1, 0.1)) ),
 
             
             // center
             Scene(new Triangle(Vector3d(2.0, 2.0, -2.0), Vector3d(-2.0, 2.0, -2.0), Vector3d(-2.0, -2.0, -2.0)),
-                  new LambertSimpleMaterial(Vector3d(0.4, 0.4, 0.4)) ),
+                  new LambertMaterial(Vector3d(0.4, 0.4, 0.4)) ),
             Scene(new Triangle(Vector3d(2.0, 2.0, -2.0), Vector3d(-2.0, -2.0, -2.0), Vector3d(2.0, -2.0, -2.0)),
-                  new LambertSimpleMaterial(Vector3d(0.4, 0.4, 0.4)) ),
+                  new LambertMaterial(Vector3d(0.4, 0.4, 0.4)) ),
 
             // bottom
             Scene(new Triangle(Vector3d( 2.0, -2.0, -2.0), Vector3d(-2.0, -2.0, -2.0), Vector3d(-2.0, -2.0, 2.0)),
-                  new LambertSimpleMaterial(Vector3d(0.4, 0.4, 0.4)) ),
+                  new PhongMaterial(Vector3d(0.9, 0.9, 0.9), 100.0) ),
             Scene(new Triangle(Vector3d( 2.0, -2.0, -2.0), Vector3d(-2.0, -2.0, 2.0), Vector3d(2.0, -2.0,  2.0)),
-                  new LambertSimpleMaterial(Vector3d(0.4, 0.4, 0.4)) ),
+                  new PhongMaterial(Vector3d(0.9, 0.9, 0.9), 100.0) ),
         };
         
         const int n = sizeof(cornellBox) / sizeof(Scene);

@@ -6,7 +6,7 @@
 #include "ray.h"
 #include "object.h"
 
-namespace Intersection
+namespace RayTracing
 {
     class Sphere : public Object
     {

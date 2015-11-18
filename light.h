@@ -7,7 +7,7 @@
 
 #include <assert.h>
 
-namespace Intersection
+namespace RayTracing
 {
     class Light : public Material
     {

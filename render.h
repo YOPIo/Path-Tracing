@@ -17,7 +17,7 @@
 #include "random.h"
 #include "ppm.h"
 
-namespace Intersection
+namespace RayTracing
 {
     int render(const char* filename, const int width, const int height, const int samplePerSubpixel, const int subpixel, const int thread)
     {

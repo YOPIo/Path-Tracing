@@ -2,7 +2,7 @@
 #define _CONSTANT_H_
 
 #include <limits>
-namespace Intersection
+namespace RayTracing
 {
     const double PI     = 3.14159265358979323846;
     const double INF    = std::numeric_limits<double>::infinity();
