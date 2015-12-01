@@ -1,4 +1,4 @@
-simple ray tracing program
+simple path tracing program
 
 How to use.
 
